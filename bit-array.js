@@ -1,18 +1,24 @@
 'use strict'
 
 /**
+ * An uncompressed bit array implementation.
+ * @module dsa/bit-array
+ */
+module.exports = BitArray
+
+/**
  * Maximum number of "safe" integer bits for each storage entry in the BitArray.
  * @type {integer}
  */
 const MAX_BITS_PER_ENTRY = Math.log2(Number.MAX_SAFE_INTEGER)
 
 /**
- * An uncompressed bit array implementation.
+ * An uncompressed bit array implementation featuring core bitwise methods with
+ * dynamic space optimal storage.
  * @class
- * @module dsa/bit-array
  * @author Ryan Sandor Richards
  */
-module.exports = class BitArray {
+class BitArray {
   /**
    * Creates a new BitArray object representing an array containing all zeros.
    * @param {array} [data] Array of integers representing the initial state of

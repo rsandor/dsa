@@ -4,7 +4,8 @@
   "description": "A data-structures and algorithms library for node",
   "main": "index.js",
   "scripts": {
-    "test": "lab -v -a code -M 100 -c -t 100"
+    "test": "lab -v -a code -M 100 -c -t 100",
+    "standard": "standard *.js test/*.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,9 @@
   "homepage": "https://github.com/rsandor/dsa#readme",
   "devDependencies": {
     "code": "^2.1.0",
-    "lab": "^8.2.0"
+    "jsdoc-to-markdown": "^1.3.3",
+    "lab": "^8.2.0",
+    "sinon": "^1.17.3",
+    "standard": "^6.0.4"
   }
 }

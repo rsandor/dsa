@@ -1,6 +1,6 @@
 {
   "name": "dsa",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A data-structures and algorithms library for node",
   "main": "index.js",
   "scripts": {

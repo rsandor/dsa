@@ -1,0 +1,27 @@
+{
+  "name": "dsa",
+  "version": "0.0.0",
+  "description": "A data-structures and algorithms library for node",
+  "main": "index.js",
+  "scripts": {
+    "test": "lab -v -a code -M 100 -c -t 100"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsandor/dsa.git"
+  },
+  "keywords": [
+    "data-structures",
+    "algorithms"
+  ],
+  "author": "Ryan Sandor Richards <sandor.richards@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rsandor/dsa/issues"
+  },
+  "homepage": "https://github.com/rsandor/dsa#readme",
+  "devDependencies": {
+    "code": "^2.1.0",
+    "lab": "^8.2.0"
+  }
+}

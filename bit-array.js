@@ -1,12 +1,6 @@
 'use strict'
 
 /**
- * An uncompressed bit array implementation.
- * @module dsa/bit-array
- */
-module.exports = BitArray
-
-/**
  * Maximum number of "safe" integer bits for each storage entry in the BitArray.
  * @type {integer}
  */
@@ -25,9 +19,9 @@ class BitArray {
    *   the bit array. Defaults to `[]`.
    */
   constructor (data) {
-    this._table = []
+    this.table = []
     if (Array.isArray(data)) {
-      this._table = data
+      this.table = data
       this._trim()
     }
   }
@@ -49,10 +43,10 @@ class BitArray {
    */
   _getEntry (bitIndex) {
     let tableIndex = parseInt(bitIndex / MAX_BITS_PER_ENTRY)
-    if (tableIndex >= this._table.length) {
+    if (tableIndex >= this.table.length) {
       return 0
     }
-    return this._table[tableIndex]
+    return this.table[tableIndex]
   }
 
   /**
@@ -65,10 +59,10 @@ class BitArray {
    */
   _setEntry (bitIndex, entry) {
     let tableIndex = parseInt(bitIndex / MAX_BITS_PER_ENTRY)
-    for (let k = tableIndex - this._table.length; k >= 0; k--) {
-      this._table.push(0)
+    for (let k = tableIndex - this.table.length; k >= 0; k--) {
+      this.table.push(0)
     }
-    this._table[tableIndex] = entry
+    this.table[tableIndex] = entry
     this._trim()
   }
 
@@ -87,8 +81,8 @@ class BitArray {
    * effectively reclaiming unused entries.
    */
   _trim () {
-    while (this.size() > 0 && this._table[this.size() - 1] === 0) {
-      this._table.pop()
+    while (this.size() > 0 && this.table[this.size() - 1] === 0) {
+      this.table.pop()
     }
   }
 
@@ -96,7 +90,7 @@ class BitArray {
    * @return The number of integers needed to represent this bit array.
    */
   size () {
-    return this._table.length
+    return this.table.length
   }
 
   /**
@@ -140,7 +134,7 @@ class BitArray {
    * @return {BitArray} A new bit array transformed under the given operation.
    */
   map (op) {
-    return new BitArray(this._table.map(op))
+    return new BitArray(this.table.map(op))
   }
 
   /**
@@ -153,8 +147,8 @@ class BitArray {
    */
   merge (b, op) {
     let a = this
-    let aTable = a._table.slice()
-    let bTable = b._table.slice()
+    let aTable = a.table.slice()
+    let bTable = b.table.slice()
 
     if (a.size() < b.size()) {
       for (let k = 0; k < b.size() - a.size(); k++) {
@@ -207,3 +201,9 @@ class BitArray {
     return this.merge(b, (k, j) => { return k ^ j })
   }
 }
+
+/**
+ * An uncompressed bit array implementation.
+ * @module dsa/bit-array
+ */
+module.exports = BitArray

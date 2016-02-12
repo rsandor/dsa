@@ -18,7 +18,7 @@ describe('BitArray', () => {
     describe('without data', () => {
       it('should create an empty BitArray', (done) => {
         let a = new BitArray()
-        expect(a._table.length).to.equal(0)
+        expect(a.table.length).to.equal(0)
         done()
       })
     })
@@ -37,14 +37,14 @@ describe('BitArray', () => {
       it('should create a bit array with the given data', (done) => {
         let data = [1, 2, 4, 8]
         let a = new BitArray(data)
-        expect(a._table).to.deep.equal(data)
+        expect(a.table).to.deep.equal(data)
         done()
       })
 
       it('should trim the resulting data', (done) => {
         let array = new BitArray([1, 2, 3, 0])
         sinon.assert.calledOnce(BitArray.prototype._trim)
-        expect(array._table).to.deep.equal([1, 2, 3])
+        expect(array.table).to.deep.equal([1, 2, 3])
         done()
       })
     })
@@ -97,14 +97,14 @@ describe('BitArray', () => {
       array._setEntry(0, 456)
       array._setEntry(maxBitsPerEntry + 1, 123)
       array._setEntry(2 * maxBitsPerEntry + 1, 890)
-      expect(array._table).to.deep.equal([456, 123, 890])
+      expect(array.table).to.deep.equal([456, 123, 890])
       done()
     })
 
     it('should resize the data table if the index is out-of-bounds', (done) => {
       let bitIndex = 5 * maxBitsPerEntry + 1
       array._setEntry(bitIndex, 123456)
-      expect(array._table).to.deep.equal([1, 2, 3, 0, 0, 123456])
+      expect(array.table).to.deep.equal([1, 2, 3, 0, 0, 123456])
       done()
     })
   }) // end '_setEntry'
@@ -122,7 +122,7 @@ describe('BitArray', () => {
     it('should trim empty trailing data entries', (done) => {
       let array = new BitArray([1, 0, 0, 0, 2, 0, 0, 0, 0, 0])
       array._trim()
-      expect(array._table).to.deep.equal([1, 0, 0, 0, 2])
+      expect(array.table).to.deep.equal([1, 0, 0, 0, 2])
       done()
     })
   }) // end 'trim'
@@ -139,7 +139,7 @@ describe('BitArray', () => {
 
     beforeEach((done) => {
       array = new BitArray()
-      array._table = [ 0b10101010, 0b11001100 ]
+      array.table = [ 0b10101010, 0b11001100 ]
       done()
     })
 
@@ -202,7 +202,7 @@ describe('BitArray', () => {
   describe('map', () => {
     it('should return a bit array mapped under the given operation', (done) => {
       let array = new BitArray([1, 2, 3])
-      expect(array.map((e) => { return e + 1 })._table).to.deep.equal([2, 3, 4])
+      expect(array.map((e) => { return e + 1 }).table).to.deep.equal([2, 3, 4])
       done()
     })
   }) // end 'map'
@@ -211,7 +211,7 @@ describe('BitArray', () => {
     it('should merge the bit arrays under the given operation', (done) => {
       let a = new BitArray([1, 2, 3])
       let b = new BitArray([3, 2, 1])
-      expect(a.merge(b, (k, j) => { return k + j })._table)
+      expect(a.merge(b, (k, j) => { return k + j }).table)
         .to.deep.equal([4, 4, 4])
       done()
     })
@@ -219,7 +219,7 @@ describe('BitArray', () => {
     it('should merge into larger bit arrays', (done) => {
       let a = new BitArray([1])
       let b = new BitArray([0, 2, 3])
-      expect(a.merge(b, (k, j) => { return Math.max(k, j) })._table)
+      expect(a.merge(b, (k, j) => { return Math.max(k, j) }).table)
         .to.deep.equal([1, 2, 3])
       done()
     })
@@ -227,7 +227,7 @@ describe('BitArray', () => {
     it('should merge into smaller bit arrays', (done) => {
       let a = new BitArray([1, 2, 2])
       let b = new BitArray([1])
-      expect(a.merge(b, (k, j) => { return k + j })._table)
+      expect(a.merge(b, (k, j) => { return k + j }).table)
         .to.deep.equal([2, 2, 2])
       done()
     })
@@ -243,7 +243,7 @@ describe('BitArray', () => {
         19,
         22
       ]
-      expect(new BitArray(given).not()._table)
+      expect(new BitArray(given).not().table)
         .to.deep.equal(given.map((entry) => { return ~entry }))
       done()
     })
@@ -253,7 +253,7 @@ describe('BitArray', () => {
     it('should return the bitwise `and` of the two bit arrays', (done) => {
       let a = new BitArray([ 0b101, 0b111 ])
       let b = new BitArray([ 0b100, 0b000 ])
-      expect(a.and(b)._table).to.deep.equal([0b100])
+      expect(a.and(b).table).to.deep.equal([0b100])
       done()
     })
   }) // end 'and'
@@ -262,7 +262,7 @@ describe('BitArray', () => {
     it('should return the bitwise `or` of the two bit arrays', (done) => {
       let a = new BitArray([ 0b101, 0b111 ])
       let b = new BitArray([ 0b010, 0b000 ])
-      expect(a.or(b)._table).to.deep.equal([0b111, 0b111])
+      expect(a.or(b).table).to.deep.equal([0b111, 0b111])
       done()
     })
   }) // end 'or'
@@ -271,7 +271,7 @@ describe('BitArray', () => {
     it('should return the bitwise `xor` of the two bit arrays', (done) => {
       let a = new BitArray([ 0b101, 0b111 ])
       let b = new BitArray([ 0b110, 0b101 ])
-      expect(a.xor(b)._table).to.deep.equal([0b11, 0b10])
+      expect(a.xor(b).table).to.deep.equal([0b11, 0b10])
       done()
     })
   }) // end 'xor'
